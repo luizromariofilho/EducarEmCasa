@@ -67,7 +67,7 @@ class Database {
     public function insert($table,$values,$rows = null) {
         $res = pg_insert($this->db, 'disciplina', $values);
         if ($res) {
-            echo "Dados POST arquivados com sucesso\n";
+            echo "Dados foram arquivados com sucesso\n";
         }
         else {
             echo "O usuário deve ter inserido entradas inválidas\n";
