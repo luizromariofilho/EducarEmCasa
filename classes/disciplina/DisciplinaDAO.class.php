@@ -6,14 +6,23 @@ class DisciplinaDAO{
 		$this->database = new Database();
 	}
 
-	public function salvar($disciplina){
-		$arr = array($disciplina->getCodigo(), $disciplina->getNome(), $disciplina->getCargaHoraria());
-		if(isset($disciplina->id)){
-			// update
-		} else {
-			$this->database->connect();
-			$this->database->insert("disciplina", $arr);
-		}
+	function objectToArray($disciplina){
+		$arr = array('id' => $disciplina->getId(), 'nome' => $disciplina->getNome(),
+			'codigo' => $disciplina->getCodigo(),'carga_horaria' => $disciplina->getCargaHoraria());
+		return $arr;
 	}
+
+	public function salvar($disciplina){
+		$this->database->connect();
+		if(isset($disciplina->id)){
+			$arr = array($disciplina->getCodigo(), $disciplina->getNome(), $disciplina->getCargaHoraria());
+			$this->database->update("disciplina", $arr, "id = ".$disciplina->getId());
+		} else {
+			$this->database->insert("disciplina", $this->objectToArray($disciplina));
+		}
+		$this->database->disconnect();
+	}
+
+	
 }
 ?>

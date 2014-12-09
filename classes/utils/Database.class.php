@@ -2,43 +2,22 @@
 
 class Database {
 	private $db_host = 'localhost'; 
-	private $db_user = 'root'; 
-	private $db_pass = ''; 
+	private $db_user = 'postgres'; 
+	private $db_pass = '1234'; 
 	private $db_name = 'educar_casa'; 
 	private $result = array();
-	private $con; 
+	private $db; 
 	
 	function __constructor(){
 	}
 
 	public function connect(){
-        if(!$this->con){
-            $myconn = @mysql_connect($this->db_host,$this->db_user,$this->db_pass);
-            if($myconn){
-                $seldb = @mysql_select_db($this->db_name,$myconn);
-                if($seldb) {
-                    $this->con = true; 
-                    return true; 
-                } else {
-                    return false; 
-                }
-            } else {
-                return false; 
-            }
-        } else {
-            return true; 
-        }
+        $con_string = "host={$this->db_host} port=5432 dbname={$this->db_name} user={$this->db_user} password={$this->db_pass}";
+        $this->db = pg_connect($con_string) or die("erro ao conectar no banco postgres.");
     }
 
     public function disconnect(){
-	    if($this->con){
-	        if(@mysql_close()){
-               $this->con = false; 
-	           return true; 
-	        } else {
-	            return false; 
-	        }
-	    }
+	    pg_close($this->db);
 	}
 	 
 	private function tableExists($table){
@@ -86,26 +65,12 @@ class Database {
 	}
 
     public function insert($table,$values,$rows = null) {
-        if($this->tableExists($table)) {
-            $insert = 'INSERT INTO '.$table;
-            if($rows != null) {
-                $insert .= ' ('.$rows.')'; 
-            }
-            for($i = 0; $i < count($values); $i++) {
-                if(is_string($values[$i]))
-                    $values[$i] = '"'.$values[$i].'"';
-            }
-            $values = implode(',',$values);
-            $insert .= ' VALUES ('.$values.')';
-            $ins = @mysqli_query($insert);  
-            if($ins) {
-                return true; 
-            }
-            else {
-                return false; 
-            }
-        } else {
-            return false;
+        $res = pg_insert($this->db, 'disciplina', $values);
+        if ($res) {
+            echo "Dados POST arquivados com sucesso\n";
+        }
+        else {
+            echo "O usuário deve ter inserido entradas inválidas\n";
         }
     }
 
