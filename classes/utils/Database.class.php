@@ -97,13 +97,15 @@ class Database {
             }
             $values = implode(',',$values);
             $insert .= ' VALUES ('.$values.')';
-            $ins = @mysql_query($insert);            
+            $ins = @mysqli_query($insert);  
             if($ins) {
                 return true; 
             }
             else {
                 return false; 
             }
+        } else {
+            return false;
         }
     }
 
