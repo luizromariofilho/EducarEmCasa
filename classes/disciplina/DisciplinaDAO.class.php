@@ -16,7 +16,7 @@ class DisciplinaDAO{
 		$this->database->connect();
 		$arr = $this->objectToArray($disciplina);
 		if(isset($disciplina->id)){
-			$result = $this->database->update("disciplina", $arr, "id = ".$disciplina->getId());
+			$result = $this->database->update("disciplina", $arr, array('id' => $disciplina->getId()));
 		} else {
 			$result = $this->database->insert("disciplina", $arr);
 		}

@@ -59,7 +59,8 @@ class Database {
     }
 
     public function update($table,$rows,$where) {
-        
+        $res = pg_update($this->db, $table, $rows, $where);
+        return $res;
     }
 
     public function getResult(){
