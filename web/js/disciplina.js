@@ -17,7 +17,7 @@ function salvar(){
 	$.post("/EducarEmCasa/classes/disciplina/salvar.php", fields, function(data){
 		eval(data);
 		if(data == 1){
-			$(location).attr('href','web/pages/main.html');
+			carregarPagina('disciplina/list');
 		} else {
 			$("#error").show();
 		}

@@ -2,5 +2,7 @@
 	require_once ("DisciplinaDAO.class.php");
 
 	$disciplinaDAO = new DisciplinaDAO();
-	$disciplinaDAO->getAll();
+	
+	$json = json_encode($disciplinaDAO->getAll());
+	echo $json;
 ?>

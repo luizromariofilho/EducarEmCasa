@@ -18,16 +18,17 @@ class DisciplinaDAO{
 			$arr = array($disciplina->getCodigo(), $disciplina->getNome(), $disciplina->getCargaHoraria());
 			$this->database->update("disciplina", $arr, "id = ".$disciplina->getId());
 		} else {
-			$this->database->insert("disciplina", $this->objectToArray($disciplina));
+			$result = $this->database->insert("disciplina", $this->objectToArray($disciplina));
 		}
 		$this->database->disconnect();
+		return $result;
 	}
 
 	public function getAll(){
 		$this->database->connect();
-		$json = json_encode($this->database->select('disciplina'));
+		$arr = $this->database->select('disciplina');
 		$this->database->disconnect();
-		echo $json;
+		return $arr;
 	}
 
 	

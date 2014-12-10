@@ -8,5 +8,5 @@
 
 	$disciplina = new Disciplina($nome, $codigo, $carga_horaria);
 	$disciplinaDAO = new DisciplinaDAO();
-	$disciplinaDAO->salvar($disciplina);
+	echo $disciplinaDAO->salvar($disciplina);
 ?>

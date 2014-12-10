@@ -34,12 +34,7 @@ class Database {
 
     public function insert($table,$values,$rows = null) {
         $res = pg_insert($this->db, $table, $values);
-        if ($res) {
-            echo "Dados foram arquivados com sucesso\n";
-        }
-        else {
-            echo "O usuário deve ter inserido entradas inválidas\n";
-        }
+        return $res;
     }
 
     public function delete($table,$where = null) {
