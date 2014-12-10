@@ -19,53 +19,21 @@ class Database {
     public function disconnect(){
 	    pg_close($this->db);
 	}
-	 
-	private function tableExists($table){
-        $tablesInDb = @mysql_query('SHOW TABLES FROM '.$this->db_name.' LIKE "'.$table.'"');
-	    if($tablesInDb){
-            if(mysql_num_rows($tablesInDb)==1){
-                return true; 
-	        } else { 
-                return false; 
-            }
-        }
-    }
 
     public function select($table, $rows = '*', $where = null, $order = null) {
-        $q = 'SELECT '.$rows.' FROM '.$table;
-        if($where != null)
-            $q .= ' WHERE '.$where;
-        if($order != null)
-            $q .= ' ORDER BY '.$order;
-        if($this->tableExists($table)) {
-        	$query = @mysql_query($q);
-        	if($query) {
-            	$this->numResults = mysql_num_rows($query);
-            	for($i = 0; $i < $this->numResults; $i++) {
-                	$r = mysql_fetch_array($query);
-                	$key = array_keys($r); 
-                	for($x = 0; $x < count($key); $x++) {
-	                    // Sanitizes keys so only alphavalues are allowed
-	                    if(!is_int($key[$x])) {
-                        	if(mysql_num_rows($query) > 1)
-                            	$this->result[$i][$key[$x]] = $r[$key[$x]];
-                        	else if(mysql_num_rows($query) < 1)
-                            	$this->result = null; 
-                        	else
-                            	$this->result[$key[$x]] = $r[$key[$x]]; 
-                    	}
-                	}
-            	}            
-            	return true; 
-        	} else {
-            	return false; 
-        	}
-        } else
-        	return false; 
+        $result = pg_query($this->db, "SELECT {$rows} FROM {$table}");
+        if (!$result) {
+            echo "Ocorreu um erro!\n";
+            exit;
+        }
+
+        $arr = pg_fetch_all($result);
+
+        return $arr;
 	}
 
     public function insert($table,$values,$rows = null) {
-        $res = pg_insert($this->db, 'disciplina', $values);
+        $res = pg_insert($this->db, $table, $values);
         if ($res) {
             echo "Dados foram arquivados com sucesso\n";
         }

@@ -1,5 +1,14 @@
 function list(){
-	$("table tr").innerHtml("<td>1</td><td>BD 1</td><td>60 horas</td><td>Hélio Lopes</td><td><i class='fa fa-pencil></i>Editar'</td>");
+	$.get("/EducarEmCasa/classes/disciplina/listar.php", function(data){
+		var obj = $.parseJSON(data);
+		var linhas = '';
+		for (var i = 0; i < obj.length; i++) {
+			var linha = '<tr><td>'+ obj[i].codigo+'</td><td>'+ obj[i].nome+'</td><td>'+ obj[i].carga_horaria+'</td><td></td></tr>';
+			linhas += linha;
+		};
+		$("table tr").after(linhas);
+	});
+
 }
 
 function salvar(){
@@ -7,7 +16,6 @@ function salvar(){
 	var fields = form.serialize();
 	$.post("/EducarEmCasa/classes/disciplina/salvar.php", fields, function(data){
 		eval(data);
-		alert(data)
 		if(data == 1){
 			$(location).attr('href','web/pages/main.html');
 		} else {

@@ -23,6 +23,13 @@ class DisciplinaDAO{
 		$this->database->disconnect();
 	}
 
+	public function getAll(){
+		$this->database->connect();
+		$json = json_encode($this->database->select('disciplina'));
+		$this->database->disconnect();
+		echo $json;
+	}
+
 	
 }
 ?>

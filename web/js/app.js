@@ -4,6 +4,7 @@ function carregarPagina(name, data){
 	} else{
 		if(isNull(data)){
 			$("#content").load(name + ".html");
+			list();
 		}else{
 			alert("ainda tem que fazer a parte de editar");
 		}
