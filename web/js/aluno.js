@@ -1,11 +1,11 @@
-function Disciplina (){
+function Aluno (){
 	this.list = function(){
-		$.get("/EducarEmCasa/classes/disciplina/listar.php", function(data){
+		$.get("/EducarEmCasa/classes/aluno/listar.php", function(data){
 			var obj = $.parseJSON(data);
 			var linhas = '';
 			for (var i = 0; i < obj.length; i++) {
 				var linha = '<tr><td>'+ obj[i].codigo+'</td><td>'+ obj[i].nome+'</td><td>'
-							+ obj[i].carga_horaria+'</td><td><a onclick="carregarPagina(\'disciplina/form\', '+ obj[i].id+')"><i class="fa fa-fw fa-pencil"></i></a>&nbsp;<a onclick=""><i class="fa fa-fw fa-close"></i></a></td></tr>';
+							+ obj[i].carga_horaria+'</td><td><a onclick="carregarPagina(\'aluno/form\', '+ obj[i].id+')"><i class="fa fa-fw fa-pencil"></i></a>&nbsp;<a onclick=""><i class="fa fa-fw fa-close"></i></a></td></tr>';
 				linhas += linha;
 			};
 			$("table tr").after(linhas);
@@ -16,10 +16,10 @@ function Disciplina (){
 	this.salvar = function(){
 		var form = $("form");
 		var fields = form.serialize();
-		$.post("/EducarEmCasa/classes/disciplina/salvar.php", fields, function(data){
+		$.post("/EducarEmCasa/classes/aluno/salvar.php", fields, function(data){
 			eval(data);
 			if(data == 1){
-				carregarPagina('disciplina/list');
+				carregarPagina('aluno/list');
 			} else {
 				$("#error").show();
 			}
@@ -27,7 +27,7 @@ function Disciplina (){
 	}
 
 	this.edit = function (id){
-		$.get("/EducarEmCasa/classes/disciplina/editar.php", {"id" : id}, function(data){
+		$.get("/EducarEmCasa/classes/aluno/editar.php", {"id" : id}, function(data){
 			var obj = $.parseJSON(data);
 			$('form').loadJSON(obj);
 
@@ -36,10 +36,10 @@ function Disciplina (){
 
 	this.excluir = function () {
 		var id = $("input[name='id']").val();
-		$.post("/EducarEmCasa/classes/disciplina/excluir.php", {"id" : id}, function(data){
+		$.post("/EducarEmCasa/classes/aluno/excluir.php", {"id" : id}, function(data){
 			eval(data);
 			if(data == 1){
-				carregarPagina('disciplina/list');
+				carregarPagina('aluno/list');
 			} else {
 				$("#error").show();
 			}
