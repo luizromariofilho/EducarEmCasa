@@ -4,10 +4,10 @@ function carregarPagina(name, data){
 	} else{
 		if(isNull(data)){
 			$("#content").load(name + ".html");
-			list();
+			obj.list();
 		}else{
 			$("#content").load(name + ".html");
-			edit(data);
+			obj.edit(data);
 		}
 	}
 }

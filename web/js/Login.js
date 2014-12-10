@@ -2,11 +2,12 @@ function login(){
 	var form = $("form");
 	var fields = form.serialize();
 	$.post("classes/utils/login.php", fields, function(data){
+		eval(data);
 		switch(data){
-			case 1 :
+			case "1" :
 				$(location).attr('href','web/pages/main.html');
 				break;
-			case 2 :
+			case "2" :
 				alert('professor');
 				break;
 			default:
