@@ -6,7 +6,8 @@ function carregarPagina(name, data){
 			$("#content").load(name + ".html");
 			list();
 		}else{
-			alert("ainda tem que fazer a parte de editar");
+			$("#content").load(name + ".html");
+			edit(data);
 		}
 	}
 }

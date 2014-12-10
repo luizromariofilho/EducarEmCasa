@@ -13,6 +13,10 @@ class Disciplina{
 		$this->carga_horaria = $carga_horaria;
 	}
 
+	public function setId($id){
+		$this->id = $id;
+	}	
+	
 	public function getId(){
 		return $this->id;
 	}
@@ -27,7 +31,8 @@ class Disciplina{
 
 	public function getCargaHoraria(){
 		return $this->carga_horaria;
-	}	
+	}
+
 
 }
 ?>

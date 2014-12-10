@@ -21,7 +21,10 @@ class Database {
 	}
 
     public function select($table, $rows = '*', $where = null, $order = null) {
-        $result = pg_query($this->db, "SELECT {$rows} FROM {$table}");
+        $query = "SELECT {$rows} FROM {$table}";
+        if($where != null) 
+            $query.= " WHERE {$where}";
+        $result = pg_query($this->db, $query);
         if (!$result) {
             echo "Ocorreu um erro!\n";
             exit;
@@ -56,46 +59,7 @@ class Database {
     }
 
     public function update($table,$rows,$where) {
-        if($this->tableExists($table)) {
-            // Parse the where values
-            // even values (including 0) contain the where rows
-            // odd values contain the clauses for the row
-            for($i = 0; $i < count($where); $i++) {
-                if($i%2 != 0) {
-                    if(is_string($where[$i])) {
-                        if(($i+1) != null)
-                            $where[$i] = '"'.$where[$i].'" AND ';
-                        else
-                            $where[$i] = '"'.$where[$i].'"';
-                    }
-                }
-            }
-            $where = implode('=',$where);
-
-            $update = 'UPDATE '.$table.' SET ';
-            $keys = array_keys($rows); 
-            for($i = 0; $i < count($rows); $i++) {
-                if(is_string($rows[$keys[$i]])) {
-                    $update .= $keys[$i].'="'.$rows[$keys[$i]].'"';
-                } else {
-                    $update .= $keys[$i].'='.$rows[$keys[$i]];
-                }
-                 
-                // Parse to add commas
-                if($i != count($rows)-1) {
-                    $update .= ','; 
-                }
-            }
-            $update .= ' WHERE '.$where;
-            $query = @mysql_query($update);
-            if($query) {
-                return true; 
-            } else {
-                return false; 
-            }
-        } else {
-            return false; 
-        }
+        
     }
 
     public function getResult(){

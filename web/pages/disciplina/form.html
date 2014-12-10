@@ -15,18 +15,19 @@
                 <div class="row">
                     <span id="error" style="display:none;" class="text-danger">Erro ao tentar salvar uma disciplina</span>
                     <form role="form" method="POST">
+                        <input type="hidden" name="id" />
                         <div class="form-group">
                             <label>Nome</label>
-                            <input class="form-control" name="nome">
+                            <input type="text" class="form-control" name="nome">
                         </div>
 
                         <div class="form-group">
                             <label>Código</label>
-                            <input class="form-control" name="codigo">
+                            <input type="text" class="form-control" name="codigo">
                         </div>
                         <div class="form-group">
                             <label>Carga Horária</label>
-                            <input class="form-control" name="carga_horaria">
+                            <input type="text" class="form-control" name="carga_horaria">
                         </div>
                         <button type="button" class="btn btn-success" onclick="salvar();">Salvar</button>
                         <button type="reset" class="btn btn-default">Limpar</button>
