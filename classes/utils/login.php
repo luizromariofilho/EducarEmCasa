@@ -6,8 +6,6 @@
 	if(!isNull($username) && !isNull($password)){
 		$login = new Login();
 		echo $login->logar($username, $password);
-	} else{
-		echo false;
 	}
 
 	function isNull($value){
