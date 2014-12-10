@@ -5,7 +5,6 @@ class Database {
 	private $db_user = 'postgres'; 
 	private $db_pass = '1234'; 
 	private $db_name = 'educar_casa'; 
-	private $result = array();
 	private $db; 
 	
 	function __constructor(){
@@ -40,30 +39,13 @@ class Database {
         return $res;
     }
 
-    public function delete($table,$where = null) {
-        if($this->tableExists($table)) {
-            if($where == null) {
-                $delete = 'DELETE '.$table; 
-            } else {
-                $delete = 'DELETE FROM '.$table.' WHERE '.$where; 
-            }
-            $del = @mysql_query($delete);
-            if($del) {
-                return true; 
-            } else {
-               return false; 
-            }
-        } else {
-            return false; 
-        }
+    public function delete($table,$where) {
+        $res = pg_delete($this->db, $table, $where);
+        return $res;
     }
 
     public function update($table,$rows,$where) {
         $res = pg_update($this->db, $table, $rows, $where);
         return $res;
-    }
-
-    public function getResult(){
-    	return $this->result;
     }
 }

@@ -32,3 +32,15 @@ function edit(id){
 
 	});
 }
+
+function excluir () {
+	var id = $("input[name='id']").val();
+	$.post("/EducarEmCasa/classes/disciplina/excluir.php", {"id" : id}, function(data){
+		eval(data);
+		if(data == 1){
+			carregarPagina('disciplina/list');
+		} else {
+			$("#error").show();
+		}
+	});
+}

@@ -38,6 +38,11 @@ class DisciplinaDAO{
 		return $disciplina;
 	}
 
-	
+	public function delete($id){
+		$this->database->connect();
+		$result =  $this->database->delete('disciplina', array('id' => $id));
+		$this->database->disconnect();
+		return $result;
+	}	
 }
 ?>
