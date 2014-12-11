@@ -6,27 +6,19 @@ class AlunoDAO{
 		$this->database = new Database();
 	}
 
-	function objectToArray($usuario){
-		$arr = array('id' => $usuario->getId(), 'nome'=> $usuario->getNome(), 'login' => $usuario->getLogin(),
-			'senha' => $usuario->getPassword(),'permissao_id' => $usuario->getPermissao());
+	function objectToArray($aluno){
+		$arr = array('id' => $aluno->getId(), 'nome'=> $aluno->getNome(), 'login' => $aluno->getLogin(),
+			'senha' => $aluno->getPassword(),'permissao_id' => $aluno->getPermissao());
 		return $arr;
 	}
 
-
-	public function getByLogin($login){
+	public function salvar($aluno){
 		$this->database->connect();
-		$usuario = $this->database->select('usuario', '*' , "login ='{$login}'");
-		$this->database->disconnect();
-		return $usuario;
-	}
-
-	public function salvar($usuario){
-		$this->database->connect();
-		$arr = $this->objectToArray($usuario);
-		if(isset($usuario->id)){
-			$result = $this->database->update("usuario", $arr, array('id' => $usuario->getId()));
+		$arr = $this->objectToArray($aluno);
+		if(isset($aluno->id)){
+			$result = $this->database->update("aluno", $arr, array('id' => $aluno->getId()));
 		} else {
-			$result = $this->database->insert("usuario", $arr);
+			$result = $this->database->insert("aluno", $arr);
 		}
 		$this->database->disconnect();
 		return $result;
@@ -34,27 +26,27 @@ class AlunoDAO{
 
 	public function getAll(){
 		$this->database->connect();
-		$arr = $this->getWithPermissao();
+		$arr = $this->getWithResponsavel();
 		$this->database->disconnect();
 		return $arr;
 	}
 
 	public function get($id){
 		$this->database->connect();
-		$usuario = $this->database->select('usuario', '*' , 'id ='.$id);
+		$aluno = $this->database->select('aluno', '*' , 'id ='.$id);
 		$this->database->disconnect();
-		return $usuario;
+		return $aluno;
 	}
 
 	public function delete($id){
 		$this->database->connect();
-		$result =  $this->database->delete('usuario', array('id' => $id));
+		$result =  $this->database->delete('aluno', array('id' => $id));
 		$this->database->disconnect();
 		return $result;
 	}
 
-	public function getWithPermissao(){
-		$query = "SELECT U.*, P.id as regra_id, P.regra FROM usuario U LEFT JOIN permissao P ON P.id = U.permissao_id";
+	public function getWithResponsavel(){
+		$query = "SELECT A.*, U.id as responsavel_id, U.nome FROM aluno A LEFT JOIN usuario U ON A.usuario_id = U.id";
         $result = pg_query($this->database->getDb(), $query);
         if (!$result) {
             echo "Ocorreu um erro!\n";

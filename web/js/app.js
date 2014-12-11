@@ -40,4 +40,9 @@ function loadDashboard(){
 		var qt = json[0].count;
 		$("#qtDisciplinas").append(qt);
 	});
+	$.get("/EducarEmCasa/classes/usuario/cont.php", function(data){
+		var json = $.parseJSON(data);
+		var qt = json[0].count;
+		$("#qtProfessores").append(qt);
+	});
 }
