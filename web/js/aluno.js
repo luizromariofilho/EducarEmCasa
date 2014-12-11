@@ -1,5 +1,4 @@
 function Aluno (){
-
 	this.init = function () {
 		$.get("/EducarEmCasa/classes/usuario/responsaveis.php", function(data){
 			var obj = $.parseJSON(data);

@@ -17,6 +17,9 @@ function carregarPagina(name, data){
 			case "usuario":
 				obj = new Usuario();
 				break;
+			case "semestre":
+				obj = new Semestre();
+				break;
 		}
 		if(isNull(data)){
 			obj.list();
