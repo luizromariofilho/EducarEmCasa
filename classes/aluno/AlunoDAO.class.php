@@ -67,5 +67,18 @@ class AlunoDAO{
 		$this->database->disconnect();
         return $arr;
 	}
+
+	public function getPorPai($id){
+		$this->database->connect();
+		$query = "SELECT * FROM aluno A  WHERE A.usuario_id = {$id}";
+        $result = pg_query($this->database->getDb(), $query);
+        if (!$result) {
+            echo "Ocorreu um erro!\n";
+            exit;
+        }
+        $arr = pg_fetch_all($result);
+        $this->database->disconnect();
+        return $arr;
+	}
 }
 ?>

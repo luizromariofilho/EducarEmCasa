@@ -4,8 +4,8 @@
 	$password = $_POST["password"];
 
 	if(!isNull($username) && !isNull($password)){
-		$login = new Login();
-		echo $login->logar($username, $password);
+		$login = new Login();	
+		echo json_encode($login->logar($username, $password));
 	}
 
 	function isNull($value){
