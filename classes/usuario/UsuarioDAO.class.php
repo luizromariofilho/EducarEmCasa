@@ -7,7 +7,7 @@ class UsuarioDAO{
 	}
 
 	function objectToArray($usuario){
-		$arr = array('id' => $usuario->getId(), 'login' => $usuario->getLogin(),
+		$arr = array('id' => $usuario->getId(), 'nome'=> $usuario->getNome(), 'login' => $usuario->getLogin(),
 			'senha' => $usuario->getPassword(),'permissao_id' => $usuario->getPermissao());
 		return $arr;
 	}
@@ -34,7 +34,7 @@ class UsuarioDAO{
 
 	public function getAll(){
 		$this->database->connect();
-		$arr = $this->database->select('usuario');
+		$arr = $this->getWithPermissao();
 		$this->database->disconnect();
 		return $arr;
 	}
@@ -51,6 +51,18 @@ class UsuarioDAO{
 		$result =  $this->database->delete('usuario', array('id' => $id));
 		$this->database->disconnect();
 		return $result;
-	}	
+	}
+
+	public function getWithPermissao(){
+		$query = "SELECT U.*, P.id as regra_id, P.regra FROM usuario U LEFT JOIN permissao P ON P.id = U.permissao_id";
+        $result = pg_query($this->database->getDb(), $query);
+        if (!$result) {
+            echo "Ocorreu um erro!\n";
+            exit;
+        }
+        $arr = pg_fetch_all($result);
+        return $arr;
+	}
+
 }
 ?>

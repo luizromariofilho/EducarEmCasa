@@ -12,6 +12,9 @@ function carregarPagina(name, data){
 			case "aluno":
 				obj = new Aluno();
 				break;
+			case "usuario":
+				obj = new Usuario();
+				break;
 		}
 		if(isNull(data)){
 			obj.list();

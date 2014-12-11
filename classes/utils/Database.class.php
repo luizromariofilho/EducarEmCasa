@@ -19,6 +19,10 @@ class Database {
 	    pg_close($this->db);
 	}
 
+    public function getDb(){
+        return $this->db;
+    }
+
     public function select($table, $rows = '*', $where = null, $order = null) {
         $query = "SELECT {$rows} FROM {$table}";
         if($where != null) 
