@@ -20,6 +20,10 @@ function carregarPagina(name, data){
 			case "semestre":
 				obj = new Semestre();
 				break;
+			case "turma":
+				obj = new Turma();
+				obj.init();
+				break;
 		}
 		if(isNull(data)){
 			obj.list();
