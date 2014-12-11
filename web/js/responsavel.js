@@ -35,9 +35,13 @@ function loadFilhos(){
                         '<h3 class="panel-title">' + $(this)[0].nome + '</h3>' +
                     '</div> ' +
                     '<div class="panel-body"> ' +
-                    '    <a onclick="verNotas('+ $(this)[0].id +');">Ver Notas</a>' + 
-                    '    <a onclick="verFaltas('+ $(this)[0].id +');">Ver Faltas</a>' + 
+                    '<span style="color: #777">Matrícula </span><b>' + $(this)[0].matricula + '</b>' + 
                     '</div> ' +
+                    '<div class="panel-footer">' +
+                        '<span class="pull-left"><a onclick="verDetalhes('+ $(this)[0].id +');">Ver Detalhes</a></span> ' +
+                        '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> ' +
+                        '<div class="clearfix"></div> ' +
+                    '</div> ' + 
                 '</div> ' +
             '</div> '); 
 		});
@@ -45,10 +49,20 @@ function loadFilhos(){
 }
 
 
-function verNotas(id){
-	alert(id);
+function verDetalhes(id){
+	$("#content").load("detalhes.html");
+	carregarDetalhes(id);
 }
 
-function verFaltas(id){
-	alert(id);
+function carregarDetalhes (id_filho) {
+	$.get("/EducarEmCasa/classes/aluno/buscar-detalhes.php", {"id_filho": id_filho}, function(data){
+		var obj = $.parseJSON(data);
+			var linhas = '';
+			for (var i = 0; i < obj.length; i++) {
+				var linha = '<tr><td>'+ obj[i].d_nome+'</td><td>'+ obj[i].n_valor+'</td><td>'
+							+ obj[i].f_valor+'</td><td>'+ obj[i].s_valor+'</td></tr>';
+				linhas += linha;
+			};
+			$("table tr").after(linhas);
+	});
 }

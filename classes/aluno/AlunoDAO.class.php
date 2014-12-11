@@ -80,5 +80,18 @@ class AlunoDAO{
         $this->database->disconnect();
         return $arr;
 	}
+
+	public function getDetalhes($id){
+		$this->database->connect();
+		$query = "SELECT A.*, F.id, F.turma_id as f_id, F.valor as f_valor, N.id, N.turma_id as n_id, N.valor as n_valor, S.id, S.valor as s_valor, D.id as d_id, D.nome as D_nome FROM turma A LEFT JOIN  falta F ON F.turma_id = A.id LEFT JOIN  nota N ON N.turma_id = A.id LEFT JOIN semestre S ON S.id = A.semestre_id LEFT JOIN disciplina D ON D.id = A.disciplina_id WHERE A.aluno_id = {$id}";
+        $result = pg_query($this->database->getDb(), $query);
+        if (!$result) {
+            echo "Ocorreu um erro!\n";
+            exit;
+        }
+        $arr = pg_fetch_all($result);
+        $this->database->disconnect();
+        return $arr;
+	}
 }
 ?>
