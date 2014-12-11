@@ -23,6 +23,19 @@ class TurmaDAO{
 		$this->database->disconnect();
 		return $result;
 	}
+	public function salvarNotas($turma_id, $nota, $falta){
+		$this->database->connect();
+		$result = $this->database->insert('nota', array('valor' => $nota, 'turma_id' => $turma_id));
+		if($result){
+			$result = $this->database->insert('falta', array('valor' => $falta, 'turma_id' => $turma_id));
+		}else{
+			$this->database->disconnect();
+			return false;
+		}
+		$this->database->disconnect();
+		return $result;
+	}
+	
 
 	public function getAll(){
 		$this->database->connect();

@@ -73,11 +73,25 @@
                     <!-- /.row -->
 
                     <div class="row">
+                    <div id="ok" class="alert alert-success" style="display:none;" role="alert">
+                        <strong>Ok!</strong> Salvo com sucesso.
+                    </div>
+                    <div id="not" class="alert alert-error" style="display:none;" role="alert">
+                      <strong>Erro!</strong> Houve um erro ao salvar.
+                    </div>
                         <form role="form">
                             <select class="form-control" name="turma_id">
-                                <option></option>
-                            </select>
+                            </select> 
+                            <div class="form-group">
+                                <label>Nota</label>
+                                <input type="text" class="form-control" name="nota">
+                            </div>
+                            <div class="form-group">
+                                <label>Falta</label>
+                                <input type="text" class="form-control" name="falta">
+                            </div>
                           <br>
+                          <button type="button" class="btn btn-success" onclick="salvar();">Salvar</button>
                         </form>
                     </div>
                     <!-- /.row -->
