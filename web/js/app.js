@@ -12,6 +12,7 @@ function carregarPagina(name, data){
 				break;
 			case "aluno":
 				obj = new Aluno();
+				obj.init();
 				break;
 			case "usuario":
 				obj = new Usuario();

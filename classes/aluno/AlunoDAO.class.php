@@ -7,8 +7,7 @@ class AlunoDAO{
 	}
 
 	function objectToArray($aluno){
-		$arr = array('id' => $aluno->getId(), 'nome'=> $aluno->getNome(), 'login' => $aluno->getLogin(),
-			'senha' => $aluno->getPassword(),'permissao_id' => $aluno->getPermissao());
+		$arr = array('id' => $aluno->getId(), 'nome'=> $aluno->getNome(), 'cpf' => $aluno->getCpf(), 'usuario_id' => $aluno->getUsuarioID() , 'rg' => $aluno->getRg(), 'matricula' => $aluno->getMatricula());
 		return $arr;
 	}
 
@@ -46,7 +45,7 @@ class AlunoDAO{
 	}
 
 	public function getWithResponsavel(){
-		$query = "SELECT A.*, U.id as responsavel_id, U.nome FROM aluno A LEFT JOIN usuario U ON A.usuario_id = U.id";
+		$query = "SELECT A.*, U.id as responsavel_id, U.nome as responsavel_nome FROM aluno A LEFT JOIN usuario U ON A.usuario_id = U.id";
         $result = pg_query($this->database->getDb(), $query);
         if (!$result) {
             echo "Ocorreu um erro!\n";

@@ -1,11 +1,24 @@
 function Aluno (){
+
+	this.init = function () {
+		$.get("/EducarEmCasa/classes/usuario/responsaveis.php", function(data){
+			var obj = $.parseJSON(data);
+			var linhas = '';
+			for (var i = 0; i < obj.length; i++) {
+				var linha = '<option value="'+ obj[i].id+'">'+ obj[i].nome+'</option>';
+				linhas += linha;
+			};
+			$("select").append(linhas);
+		});
+	}
+
 	this.list = function(){
 		$.get("/EducarEmCasa/classes/aluno/listar.php", function(data){
 			var obj = $.parseJSON(data);
 			var linhas = '';
 			for (var i = 0; i < obj.length; i++) {
-				var linha = '<tr><td>'+ obj[i].codigo+'</td><td>'+ obj[i].nome+'</td><td>'
-							+ obj[i].carga_horaria+'</td><td><a onclick="carregarPagina(\'aluno/form\', '+ obj[i].id+')"><i class="fa fa-fw fa-pencil"></i></a>&nbsp;<a onclick=""><i class="fa fa-fw fa-close"></i></a></td></tr>';
+				var linha = '<tr><td>'+ obj[i].nome+'</td><td>'+ obj[i].responsavel_nome +'</td><td>'
+							+ obj[i].rg+'</td><td>'+ obj[i].cpf+'</td><td><a onclick="carregarPagina(\'aluno/form\', '+ obj[i].id+')"><i class="fa fa-fw fa-pencil"></i></a>&nbsp;<a onclick=""><i class="fa fa-fw fa-close"></i></a></td></tr>';
 				linhas += linha;
 			};
 			$("table tr").after(linhas);

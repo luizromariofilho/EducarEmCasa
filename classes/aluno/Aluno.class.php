@@ -1,30 +1,18 @@
 <?php
 class Aluno{
 	var $id;
-	var $login;
-	var $password;
-	var $permissao_id;
 	var $nome;
+	var $rg;
+	var $cpf;
+	var $matricula;
+	var $usuario_id;
 
-	function __construct($login, $password){
-		$this->login =  $login;
-		$this->password = $password;
-	}
-
-	public function getPermissao(){
-		return $this->permissao_id;
-	}
-
-	public function setPermissao($value){
-		$this->permissao_id = $value;
-	}
-
-	public function getLogin(){
-		return $this->login;
-	}
-
-	public function getPassword(){
-		return $this->password;
+	function __construct($nome, $rg, $cpf, $matricula, $usuario_id){
+		$this->nome =  $nome;
+		$this->rg = $rg;
+		$this->matricula = $matricula;
+		$this->cpf = $cpf;
+		$this->usuario_id = $usuario_id;
 	}
 
 	public function setId($value){
@@ -41,6 +29,22 @@ class Aluno{
 
 	public function getNome(){
 		return $this->nome;
+	}
+
+	public function getCpf(){
+		return $this->cpf;
+	}
+
+	public function getMatricula(){
+		return $this->matricula;
+	}
+
+	public function getRg(){
+		return $this->rg;
+	}
+
+	public function getUsuarioID(){
+		return $this->usuario_id;
 	}
 }
 ?>
