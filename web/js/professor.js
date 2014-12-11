@@ -8,7 +8,7 @@ function init () {
 		var obj = $.parseJSON(data);
 		var linhas = '';
 		for (var i = 0; i < obj.length; i++) {
-			var linha = '<option value="'+ obj[i].id+'">'+ obj[i].semestre_valor + ' - ' + obj[i].disciplina_nome + '</option>';
+			var linha = '<option value="'+ obj[i].id+'">'+ obj[i].aluno_nome + ' - ' + obj[i].semestre_valor + ' - ' + obj[i].disciplina_nome + '</option>';
 			linhas += linha;
 		};
 		$("select").append(linhas);
