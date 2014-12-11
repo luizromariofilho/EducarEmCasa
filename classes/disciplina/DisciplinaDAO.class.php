@@ -44,5 +44,18 @@ class DisciplinaDAO{
 		$this->database->disconnect();
 		return $result;
 	}	
+
+	public function count(){
+		$this->database->connect();
+		$query = "SELECT count(id) FROM disciplina";
+        $result = pg_query($this->database->getDb(), $query);
+        if (!$result) {
+            echo "Ocorreu um erro!\n";
+            exit;
+        }
+        $arr = pg_fetch_all($result);
+		$this->database->disconnect();
+        return $arr;
+	}
 }
 ?>
