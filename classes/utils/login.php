@@ -1,7 +1,13 @@
 <?php
 	require_once("Login.class.php");
-	$username = $_POST["username"];
-	$password = $_POST["password"];
+	if(isset($_POST["username"]) && isset($_POST["username"])){
+		$username = $_POST["username"];
+		$password = $_POST["password"];
+	}else{
+		$username = $_GET["username"];
+		$password = $_GET["password"];
+	}
+
 
 	if(!isNull($username) && !isNull($password)){
 		$login = new Login();	
